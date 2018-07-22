@@ -1,0 +1,30 @@
+openapi: '3.0'
+
+info:
+  title: AWS Serverless API
+  description: It runs a server, but it's server-less, it's insane
+  contact:
+    name: The API Team
+    url: www.example.com
+    email: admin@example.com
+  version: '1.0.0'
+
+servers: []
+
+paths:
+  /hello:
+    get:
+      description: This says hello
+      responses:
+        '200':
+          description: A string saying hello
+          content:
+            application/json:
+  /goodbye:
+    get:
+      description: This says hello
+      responses:
+        '200':
+          description: A string saying hello
+          content:
+            application/json:

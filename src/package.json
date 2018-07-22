@@ -1,0 +1,24 @@
+{
+  "name": "hello_world",
+  "version": "1.0.0",
+  "description": "hello world sample for NodeJS",
+  "main": "src/index.js",
+  "author": "SAM CLI",
+  "license": "MIT",
+  "config": {
+    "lambda_function": "CONFIGURE_AWS_LAMBDA_FUNCTION_NAME",
+    "profile": "CONFIGURE_AWS_PROFILE",
+    "s3Bucket": "CONFIGURE_AWS_S3_BUCKET_NAME"
+  },
+  "scripts": {
+    "test": "mocha tests/unit/"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1",
+    "standard": "^11.0.1"
+  }
+}

@@ -1,0 +1,84 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+    A small SAM-APP for starting off in development
+    (based on the sam local template)
+
+# ------ Globals ----------------------------
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  # ------ API Gateway Api
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: dev
+      DefinitionUri: ./resources/swagger.yaml
+
+
+  # ------ IAM Policy -----------------------
+  CONFIGURE_AWS_LAMBDA_FUNCTION_NAMEExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          Effect: Allow
+          Principal:
+            Service: lambda.amazonaws.com
+          Action: sts:AssumeRole
+      Path: "/"
+      Policies:
+      - PolicyName: root
+        PolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+          - Effect: Allow
+            Action:
+            - logs:CreateLogGroup
+            - logs:CreateLogStream
+            - logs:PutLogEvents
+            Resource: arn:aws:logs:*:*:*
+
+  # ------ Lambda: CONFIGURE_AWS_LAMBDA_FUNCTION_NAME ------
+  CONFIGURE_AWS_LAMBDA_FUNCTION_NAME:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: src/
+      Handler: lambda.handler
+      Runtime: nodejs8.10
+      Environment:
+        Variables:
+          PARAM1: VALUE
+      Events:
+        ServerlessLambdaApi:
+          # ------ Api: /hello --------------
+          Type: Api
+          Properties:
+            Path: /hello
+            Method: get
+            Properties:
+          # ------ Api: /goodbye ------------
+          Type: Api
+          Properties:
+            Path: /goodbye
+            Method: get
+            Properties:
+          # todo: ------ Api: /hello/{proxy+}
+
+
+Outputs:
+
+    CONFIGURE_AWS_LAMBDA_FUNCTION_NAMEApi:
+      Description: "API Gateway endpoint URL for Prod CONFIGURE_AWS_LAMBDA_FUNCTION_NAME"
+      Value: !Sub "https://${ApiGatewayApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+
+    CONFIGURE_AWS_LAMBDA_FUNCTION_NAMEFunction:
+      Description: "CONFIGURE_AWS_LAMBDA_FUNCTION_NAME Lambda function ARN"
+      Value: !GetAtt CONFIGURE_AWS_LAMBDA_FUNCTION_NAME.Arn
+
+    CONFIGURE_AWS_LAMBDA_FUNCTION_NAMEFunctionIamRole:
+      Description: "IAM Role for CONFIGURE_AWS_LAMBDA_FUNCTION_NAME Lambda function"
+      Value: !GetAtt CONFIGURE_AWS_LAMBDA_FUNCTION_NAMEExecutionRole.Arn
