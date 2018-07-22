@@ -3,11 +3,10 @@
 # Arguments to pass to tesseract cli in docker
 args?=help
 
-# AWS Profile to run with
-profile?=CONFIGURE_AWS_PROFILE
-
-# AWS Bucket Name
+# Configure values
 s3_bucket?=CONFIGURE_AWS_S3_BUCKET_NAME
+lambda?=CONFIGURE_AWS_LAMBDA_FUNCTION_NAME
+profile?=CONFIGURE_AWS_PROFILE
 
 install: ## Project and sam resource dependencies
 	cd src && npm install
@@ -22,7 +21,7 @@ test: ## Runs tests inside the lambda src folder
 	cd src && npm test
 
 config: ## Hard codes parameters into project (theoretically idempotent)
-	node ./scripts/configure.js $(s3_bucket) $(profile)
+	node ./scripts/configure.js $(s3_bucket) $(lambda) $(profile)
 
 deconfig: ## Removes hard coded parameters from project (theoretically idempotent)
 	node ./scripts/deconfigure.js
