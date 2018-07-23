@@ -4,9 +4,9 @@
 args?=help
 
 # Configure values
-s3_bucket?=CONFIGURE_AWS_S3_BUCKET_NAME
-lambda?=CONFIGURE_AWS_LAMBDA_FUNCTION_NAME
-profile?=CONFIGURE_AWS_PROFILE
+s3_bucket?=mrosata-serverless
+lambda?=LambdaServerLessApi
+profile?=personal
 
 install: ## Project and sam resource dependencies
 	cd src && npm install

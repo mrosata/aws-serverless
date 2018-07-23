@@ -19,7 +19,7 @@ Resources:
 
 
   # ------ IAM Policy -----------------------
-  CONFIGURE_AWS_LAMBDA_FUNCTION_NAMEExecutionRole:
+  LambdaServerLessApiExecutionRole:
     Type: AWS::IAM::Role
     Properties:
       AssumeRolePolicyDocument:
@@ -42,8 +42,8 @@ Resources:
             - logs:PutLogEvents
             Resource: arn:aws:logs:*:*:*
 
-  # ------ Lambda: CONFIGURE_AWS_LAMBDA_FUNCTION_NAME ------
-  CONFIGURE_AWS_LAMBDA_FUNCTION_NAME:
+  # ------ Lambda: LambdaServerLessApi ------
+  LambdaServerLessApi:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: src/
@@ -71,14 +71,14 @@ Resources:
 
 Outputs:
 
-    CONFIGURE_AWS_LAMBDA_FUNCTION_NAMEApi:
-      Description: "API Gateway endpoint URL for Prod CONFIGURE_AWS_LAMBDA_FUNCTION_NAME"
+    LambdaServerLessApiApi:
+      Description: "API Gateway endpoint URL for Prod LambdaServerLessApi"
       Value: !Sub "https://${ApiGatewayApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
 
-    CONFIGURE_AWS_LAMBDA_FUNCTION_NAMEFunction:
-      Description: "CONFIGURE_AWS_LAMBDA_FUNCTION_NAME Lambda function ARN"
-      Value: !GetAtt CONFIGURE_AWS_LAMBDA_FUNCTION_NAME.Arn
+    LambdaServerLessApiFunction:
+      Description: "LambdaServerLessApi Lambda function ARN"
+      Value: !GetAtt LambdaServerLessApi.Arn
 
-    CONFIGURE_AWS_LAMBDA_FUNCTION_NAMEFunctionIamRole:
-      Description: "IAM Role for CONFIGURE_AWS_LAMBDA_FUNCTION_NAME Lambda function"
-      Value: !GetAtt CONFIGURE_AWS_LAMBDA_FUNCTION_NAMEExecutionRole.Arn
+    LambdaServerLessApiFunctionIamRole:
+      Description: "IAM Role for LambdaServerLessApi Lambda function"
+      Value: !GetAtt LambdaServerLessApiExecutionRole.Arn

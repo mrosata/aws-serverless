@@ -6,9 +6,9 @@
   "author": "SAM CLI",
   "license": "MIT",
   "config": {
-    "lambda_function": "CONFIGURE_AWS_LAMBDA_FUNCTION_NAME",
-    "profile": "CONFIGURE_AWS_PROFILE",
-    "s3Bucket": "CONFIGURE_AWS_S3_BUCKET_NAME"
+    "lambda_function": "LambdaServerLessApi",
+    "profile": "personal",
+    "s3Bucket": "mrosata-serverless"
   },
   "scripts": {
     "test": "mocha tests/unit/"
