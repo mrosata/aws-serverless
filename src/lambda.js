@@ -1,24 +1,12 @@
-const axios = require('axios')
-const url = 'http://checkip.amazonaws.com/'
-let response
+const awsServerlessExpress = require('aws-serverless-express')
+const app = require('./app')
 
 
-exports.handler = async (event, context, callback) => {
-  try {
-    const ret = await axios(url)
-    console.log(ret)
-    response = {
-      'statusCode': 200,
-      'body': JSON.stringify({
-        message: 'hello world',
-        location: ret.data.trim()
-      })
-    }
-  }
-  catch (err) {
-    console.log(err)
-    callback(err, null)
-  }
+exports.handler = (event, context) =>
+  awsServerlessExpress.proxy(
+    awsServerlessExpress.createServer(app), event, context
+  )
 
-  callback(null, response)
+if (process.env.TEST) {
+  app.listen(3000)
 }

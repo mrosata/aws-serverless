@@ -14,7 +14,7 @@ Resources:
   ApiGatewayApi:
     Type: AWS::Serverless::Api
     Properties:
-      StageName: dev
+      StageName: prod
       DefinitionUri: ./resources/swagger.yaml
 
 
@@ -53,13 +53,14 @@ Resources:
         Variables:
           PARAM1: VALUE
       Events:
-        ServerlessLambdaApi:
+        LambdaServerLessApiHello:
           # ------ Api: /hello --------------
           Type: Api
           Properties:
             Path: /hello
             Method: get
             Properties:
+        LambdaServerLessApiGoodbye:
           # ------ Api: /goodbye ------------
           Type: Api
           Properties:
